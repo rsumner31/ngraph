@@ -38,6 +38,23 @@ def test_duplicate_axis_different_length():
     assert 'N' in str(e)
 
 
+def test_duplicate_axis():
+    a = ng.make_axis(name='X')
+    b = ng.make_axis(name='X')
+    with pytest.raises(ValueError):
+        ng.make_axes([a, b])
+
+
+def test_duplicate_axis_different_length():
+    a = ng.make_axis(1, name='N')
+    b = ng.make_axis(2, name='N')
+    with pytest.raises(ValueError) as e:
+        ng.make_axes([a, b])
+
+    # ensure the name of the axis appears in the exception
+    assert 'N' in str(e)
+
+
 # axes for testing
 ax_A = ng.make_axis(2, name='A')
 ax_B = ng.make_axis(3, name='B')
